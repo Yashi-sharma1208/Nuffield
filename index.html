@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8" />
     <title>Nuffield Health Support</title>
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,8 +52,7 @@
     </header>
 
     <div class="hero">
-        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" alt="Hospital Icon" />
-
+        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" alt="Hospital Icon">
         <div class="info-box">
             Welcome to Nuffield Health Support.
             <br /><br />
@@ -130,26 +128,26 @@
                         }, 4000);
  
                     }
+ 
+ 
                 });
                 embeddedservice_bootstrap.init(
-                    '00D9E0000000pto',
-                    'Agentforce_Customer_Support',
-                    'https://nuffieldhealth-crm--crmqa.sandbox.my.site.com/ESWAgentforceCustomerSu1765444241457',
-                    {
-                        scrt2URL: 'https://nuffieldhealth-crm--crmqa.sandbox.my.salesforce-scrt.com'
-                    }
-                );
+                            '00D9E0000000pto',
+                            'Agentforce_Customer_Support',
+                            'https://nuffieldhealth-crm--crmqa.sandbox.my.site.com/ESWAgentforceCustomerSu1765444241457',
+                            {
+                                scrt2URL: 'https://nuffieldhealth-crm--crmqa.sandbox.my.salesforce-scrt.com'
+                            }
+                        );
             } catch (err) {
                 console.error('Error loading Embedded Messaging: ', err);
             }
         };
     </script>
-
-    <script
-        type='text/javascript'
-        src='https://nuffieldhealth-crm--mintdev.sandbox.my.site.com/ESWAgentforceCustomerSu1764586530167/assets/js/bootstrap.min.js'
-        onload='initEmbeddedMessaging()'>
-    </script>
+    <script type='text/javascript'
+        src='https://nuffieldhealth-crm--mintdev.sandbox.my.site.com/ESWAgentforceCustomerSu1764586530167/assets/js/bootstrap.min.js%27
+        onload='initEmbeddedMessaging()'></script>
 
 </body>
+
 </html>
