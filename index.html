@@ -70,7 +70,7 @@
                 e = document.createElement("script"), e.type = "module", e.src = u + "?" + Math.round(Date.now() / 1e3 / 3600),
                 document.head.appendChild(e)
         })('cxone', 'https://web-modules-de-uk1.niceincontact.com/loader/1/loader.js');
- 
+
         cxone('init', '1152');
         cxone('chat', 'init', 1152, 'chat_77cdeb00-0c80-41cb-874b-0e7df1067e0c'); //CXOne LIVE CHAT Channel ID use CHAT for Digital and GUIDE for GUIDE..
         // Set Customer's name
@@ -81,36 +81,36 @@
         cxone('chat', 'setCustomField', 'sfticketid', '1234-rteqw-1234-789dfty'); //salesforce case ID
         cxone('chat', 'setCustomField', 'sftranscriptid', transcriptId); //NOT USED
         cxone('chat', 'sendFirstMessageAutomatically', 'Welcome to Nuffield Support. How can I help you?');
- 
+
         console.log('startCxoneChat Second checkpoint');
- 
+
         cxone('chat', 'chat', 'hideSystemMessages');
         cxone('chat', 'hideSendTranscript');
         cxone('chat', 'enableChatAlwaysOnline');
         cxone('chat', 'hidePreSurvey');
         cxone('chat', 'openChatWindow');
- 
+
         cxone('chat', 'autoStartSession');
         console.log('startCxoneChat Third checkpoint');
- 
+
     }
- 
+
     function getSkillId(messageText) {
         console.log('getting the skill id for -' + messageText);
         const text = messageText.toLowerCase();
- 
+
         if (text.includes('appointment cancellation')) {
             return '31531982';
         }
- 
+
         if (text.includes('appointment booking')) {
             return '29204808';
         }
- 
+
         return '29204809';
     }
- 
- 
+
+
     function initEmbeddedMessaging() {
         let firstName = "";
         let transcriptId = "";
@@ -118,21 +118,31 @@
         let SkillId = "";
         try {
             embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
- 
+
             // This event listner is triggered when the pre-chat form is submitted
             window.addEventListener("onEmbeddedMessagingPreChatSubmitted", ({ detail }) => {
                 const { _firstName } = detail.prechatSubmitFields;
                 firstName = _firstName;;
- 
+
             });
- 
+
+            const IDLE_TIME =  5 * 60 * 1000; // 5 minutes
+            let idleTimer = null;
+
             // This event listner is triggered when a message is sent in the chat
             window.addEventListener("onEmbeddedMessageSent", (event) => {
+
+                clearTimeout(idleTimer);
+
+                idleTimer = setTimeout(() => {
+                    embeddedservice_bootstrap.userVerificationAPI.clearSession(true);
+                }, IDLE_TIME);
+
                 const payload = JSON.parse(event.detail.conversationEntry.entryPayload);
- 
+
                 //Extract text
                 const messageText = payload.abstractMessage?.staticContent?.text;
- 
+
                 console.log("Extracted text:", messageText);
                 // Fetching transcript id
                 if (messageText.includes("welcome to Nuffield Customer Support")) {
@@ -142,7 +152,7 @@
                         console.log('Transcript Id - ' + transcriptId);
                     }
                 }
- 
+
                 if (messageText.includes('Transferring the chat to a support executive')) {
                     skillId = getSkillId(messageText);
                     console.log("Skill Id :" + skillId);
@@ -152,10 +162,10 @@
                         console.log('Closing the agentforce chat window');
                         embeddedservice_bootstrap.userVerificationAPI.clearSession(true)
                     }, 4000);
- 
+
                 }
- 
- 
+
+
             });
             embeddedservice_bootstrap.init(
                 '00D9E0000000pto',
@@ -170,7 +180,6 @@
         }
     };
 </script>
-<script type='text/javascript' src='https://nuffieldhealth-crm--crmqa.sandbox.my.site.com/ESWAgentforceCustomerSu1765444241457/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
-</body>
+<script type='text/javascript' src='https://nuffieldhealth-crm--crmqa.sandbox.my.site.com/ESWAgentforceCustomerSu1765444241457/assets/js/bootstrap.min.js%27 onload='initEmbeddedMessaging()'></script></body>
 
 </html>
